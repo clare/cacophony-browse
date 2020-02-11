@@ -5,7 +5,6 @@ node_js:
 script:
 - npm run lint && npm test
 - cp dev-config.js.TEMPLATE dev-config.js
-- npm run dev
 
 # start the api server
 - git clone "https://github.com/TheCacophonyProject/cacophony-api"
@@ -13,6 +12,8 @@ script:
 - ./run --isolate --background
 - ./wait-for-api || { docker ps; docker logs cacophony-api; exit 1; }
 - cd ..
+
+- npm run dev
 
 # Run tests
 - git clone -b browse-tests "https://github.com/clare/integration-tests"
