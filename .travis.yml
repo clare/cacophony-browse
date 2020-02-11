@@ -17,6 +17,7 @@ script:
 - git clone -b browse-tests "https://github.com/clare/integration-tests"
 - cd integration-tests
 - cp cypress.json.TEMPLATE cypress.json
+- npm install
 - CYPRESS_baseUrl=http://localhost:8080; npm run release:browse
 
 # Update files which need the right version number, build the packed
