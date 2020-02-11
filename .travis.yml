@@ -4,22 +4,20 @@ node_js:
 
 script:
 - npm run lint && npm test
-# - npm run dev:skip-tests
+- npm run dev:skip-tests
 
-# # start the api server
-# - git clone "https://github.com/TheCacophonyProject/cacophony-api"
-# - cd cacophony-api
-# - ./run --isolate --background
-# - ./wait-for-api || { docker ps; docker logs cacophony-api; exit 1; }
-# - cd ..
+# start the api server
+- git clone "https://github.com/TheCacophonyProject/cacophony-api"
+- cd cacophony-api
+- ./run --isolate --background
+- ./wait-for-api || { docker ps; docker logs cacophony-api; exit 1; }
+- cd ..
 
 # Run tests
-- git clone "https://github.com/TheCacophonyProject/integration-tests"
+- git clone "https://github.com/clare/integration-tests"
 - cd integration-tests
-- ls
 - cp cypress.json.TEMPLATE cypress.json
-- CYPRESS_baseUrl=http://localhost:8080; npm run release
-
+- CYPRESS_baseUrl=http://localhost:8080; npm run release:browse
 
 # Update files which need the right version number, build the packed
 # release, install the nfpm tool and build the release deb package.
