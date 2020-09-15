@@ -8,7 +8,7 @@
         :title="title"
         :data="data"
         :log="logarithmic"
-        :message="introMessage"
+        :message="graphMessage"
         x-axis-label="Device Name"
         y-axis-label="Number of Recordings"
         @click="gotoRecordingsSearchPage($event)"
@@ -67,7 +67,7 @@ export default {
       width: window.innerWidth,
       showGroups: "all",
       logarithmic: false,
-      introMessage: "Please select a group"
+      graphMessage: "Please select a group"
     };
   },
   computed: {
@@ -147,7 +147,7 @@ export default {
   methods: {
     getData: async function() {
       this.fetching = true;
-      this.introMessage = null;
+      this.graphMessage = null;
 
       const limit = 1000;
       const searchParams = {
@@ -168,6 +168,11 @@ export default {
         searchParams.limit = allData.count;
         ({ result: allData } = await api.query(searchParams));
       }
+
+      if (allData.count == 0) {
+        this.graphMessage = "There were no recordings.";
+      }
+
       // Count the number of recordings for each device
       this.devices.map(device => (this.deviceCount[device.id] = 0));
       for (const row of allData.rows) {
